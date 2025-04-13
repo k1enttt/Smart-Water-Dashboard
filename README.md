@@ -1,3 +1,9 @@
+Welcome to the new Smart Water Dashboard! This project replaces the [old repository](https://github.com/k1enttt/web-smart-water), which was no longer functioning well and had unresolved issues that couldn't be fixed. We've rebuilt and improved it here for better performance and reliability.
+
+# Smart Water Dashboard
+
+A dashboard for monitoring the plants and devices' condition for an IoT system that can water the plants automatically for users.
+
 ## Example app using MongoDB
 
 [MongoDB](https://www.mongodb.com/) is a general purpose, document-based, distributed database built for modern application developers and for the cloud era. This example will show you how to connect to and use MongoDB as your backend for your Next.js app.
