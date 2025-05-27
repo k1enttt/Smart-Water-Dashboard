@@ -1,6 +1,7 @@
-import Tabs from "@/app/components/Tabs";
 import { TreeSchema } from "@/schemas/TreeSchema";
 import Image from "next/image";
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'http:localhost:3000/'
 
 type Args = {
   params: Promise<{
@@ -11,7 +12,7 @@ type Args = {
 export default async function TreeDetail(props: Args) {
   const { treeId } = await props.params;
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/trees/${treeId}`,
+    `${BASE_URL}/api/trees/${treeId}`,
     {
       cache: "no-store",
     }
