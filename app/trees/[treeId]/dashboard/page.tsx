@@ -1,7 +1,8 @@
 "use server";
 
 import { MyLineChart } from "@/app/components/LineChart";
-import { HistoricalDaum, TreeSchema } from "@/schemas/TreeSchema";
+import { HistoricalDaum } from "@/schemas/TreeSchema";
+import { Suspense } from "react";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? "http:localhost:3000/";
 
@@ -29,21 +30,35 @@ export default async function TreeDashboard(props: Args) {
   return (
     <div>
       <div className="w-full grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
-        <div className="bg-blue-500 h-32 flex items-center justify-center text-3xl font-bold text-white rounded-lg">
-          {latestHistoricalData.moisture}%
+        <div className="relative bg-blue-500 flex flex-col justify-center rounded-lg text-white p-4">
+          <div>Độ ẩm đất</div>
+          <div className="text-3xl font-bold">
+            {latestHistoricalData.moisture} %
+          </div>
         </div>
-        <div className="bg-blue-500 h-32 flex items-center justify-center text-3xl font-bold text-white rounded-lg">
-          {latestHistoricalData.temperature}&deg;C
+        <div className="relative bg-blue-500 flex flex-col justify-center rounded-lg text-white p-4">
+          <div>Nhiệt độ không khí</div>
+          <div className="text-3xl font-bold">
+            {latestHistoricalData.temperature} &deg;C
+          </div>
         </div>
-        <div className="bg-blue-500 h-32 flex items-center justify-center text-3xl font-bold text-white rounded-lg">
-          {latestHistoricalData.humidity}%
+        <div className="relative bg-blue-500 flex flex-col justify-center rounded-lg text-white p-4">
+          <div>Độ ẩm không khí</div>
+          <div className="text-3xl font-bold">
+            {latestHistoricalData.humidity} %
+          </div>
         </div>
-        <div className="bg-blue-500 h-32 flex items-center justify-center text-3xl font-bold text-white rounded-lg">
-          {latestHistoricalData.pressure}
+        <div className="relative bg-blue-500 flex flex-col justify-center rounded-lg text-white p-4">
+          <div>Áp suất không khí</div>
+          <div className="text-3xl font-bold">
+            {latestHistoricalData.pressure} mbar
+          </div>
         </div>
       </div>
-      <div className="">
-        <MyLineChart chartData={historicalData} />
+      <div className="mt-4">
+        <Suspense fallback={<div>Loading...</div>}>
+          <MyLineChart chartData={historicalData} />
+        </Suspense>
       </div>
     </div>
   );

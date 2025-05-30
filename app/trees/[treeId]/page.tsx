@@ -1,8 +1,9 @@
-'use server'
+"use server";
 import { TreeSchema } from "@/schemas/TreeSchema";
 import Image from "next/image";
+import { Suspense } from "react";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'http:localhost:3000/'
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? "http:localhost:3000/";
 
 type Args = {
   params: Promise<{
@@ -12,12 +13,9 @@ type Args = {
 
 export default async function TreeDetail(props: Args) {
   const { treeId } = await props.params;
-  const res = await fetch(
-    `${BASE_URL}/api/trees/${treeId}`,
-    {
-      cache: "no-store",
-    }
-  );
+  const res = await fetch(`${BASE_URL}/api/trees/${treeId}`, {
+    cache: "no-store",
+  });
   const data = await res.json();
   const tree = data.response as TreeSchema;
 
@@ -28,13 +26,16 @@ export default async function TreeDetail(props: Args) {
         <div className="space-y-4 p-4 rounded-lg bg-gray-200">
           <div className="flex gap-4">
             <div className="flex-0">
-              <Image
-                alt="tree avatar"
-                src={tree.image}
-                width={150}
-                height={150}
-                className="rounded-lg"
-              />
+              <Suspense fallback={<div>Loading...</div>}>
+                <Image
+                  alt="tree avatar"
+                  src={tree.image}
+                  width={150}
+                  height={150}
+                  loading="lazy"
+                  className="rounded-lg"
+                />
+              </Suspense>
             </div>
             <div className="flex-1">
               <div className="px-2 py-1 rounded-full bg-green-200 text-green-500 text-xs w-fit mb-2">
