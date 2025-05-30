@@ -1,3 +1,4 @@
+'use server'
 import { TreeSchema } from "@/schemas/TreeSchema";
 import Image from "next/image";
 

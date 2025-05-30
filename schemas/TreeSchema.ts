@@ -28,10 +28,10 @@ export interface Sensor {
 
 export interface HistoricalDaum {
   timestamp: string
-  sensor_id: string
-  type: string
-  value: number
-  unit: string
+  moisture: number
+  temperature: number
+  humidity: number
+  pressure: number
 }
 
 export interface Alert {
