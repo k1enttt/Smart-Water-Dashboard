@@ -18,7 +18,6 @@ export function parseTimestamp(timestamp: string): { date: string; time: string 
   };
 }
 
-
 export function filterSensorData(
   data: HistoricalDaum[],
   sensorName: "moisture" | "temperature" | "humidity" | "pressure"
@@ -30,4 +29,10 @@ export function filterSensorData(
     [sensorName]: item[sensorName],
     timestamp: item.timestamp,
   }));
+}
+
+export function extractNumberDot(str: string | null): string | null {
+  if (!str) return null
+  const match = str.match(/[\d.]+/g);
+  return match ? match.join('') : '';
 }
