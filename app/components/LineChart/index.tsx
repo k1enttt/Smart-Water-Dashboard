@@ -1,7 +1,7 @@
 "use client";
 
 import { TrendingUp } from "lucide-react";
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 
 import {
   Card,
@@ -17,7 +17,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { HistoricalDaum } from "@/schemas/TreeSchema";
 import { parseTimestamp } from "@/lib/utils";
 
 const chartDataForTesting = [
@@ -78,28 +77,29 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 type ChartProps = {
-  chartData?: HistoricalDaum[];
+  chartData?: any[];
+  title: string;
 };
 
-export function MyLineChart({ chartData }: ChartProps) {
-const formatedChartData = chartData?.map((e) => {
-  return {
-    ...e,
-    timestamp: parseTimestamp(e.timestamp).time,
-  };
-})
+export function MyLineChart({ chartData, title }: ChartProps) {
+  const formatedChartData = chartData?.map((e) => {
+    return {
+      ...e,
+      timestamp: parseTimestamp(e.timestamp).time,
+    };
+  });
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Line Chart - Linear</CardTitle>
+        <CardTitle>Line Chart - {title}</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
           <LineChart
             accessibilityLayer
-            data={formatedChartData ? formatedChartData : chartDataForTesting}
+            data={formatedChartData}
             margin={{
               left: 12,
               right: 12,
@@ -111,6 +111,12 @@ const formatedChartData = chartData?.map((e) => {
               tickLine={false}
               axisLine={false}
               tickMargin={8}
+            />
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              width={20}
             />
             <ChartTooltip
               cursor={false}
@@ -140,14 +146,6 @@ const formatedChartData = chartData?.map((e) => {
           </LineChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
-        </div>
-      </CardFooter>
     </Card>
   );
 }

@@ -1,6 +1,7 @@
 "use server";
 
 import { MyLineChart } from "@/app/components/LineChart";
+import { filterSensorData } from "@/lib/utils";
 import { HistoricalDaum } from "@/schemas/TreeSchema";
 import { Suspense } from "react";
 
@@ -55,9 +56,12 @@ export default async function TreeDashboard(props: Args) {
           </div>
         </div>
       </div>
-      <div className="mt-4">
+      <div className="mt-4 grid grid-cols-2 gap-4">
         <Suspense fallback={<div>Loading...</div>}>
-          <MyLineChart chartData={historicalData} />
+          <MyLineChart chartData={filterSensorData(historicalData, 'temperature')} title="Temperature" />
+          <MyLineChart chartData={filterSensorData(historicalData, 'humidity')} title="Humidity"/>
+          <MyLineChart chartData={filterSensorData(historicalData, 'moisture')} title="Moisture" />
+          <MyLineChart chartData={filterSensorData(historicalData, 'pressure')} title="Air Pressure" />
         </Suspense>
       </div>
     </div>

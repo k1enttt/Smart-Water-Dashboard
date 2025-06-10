@@ -1,3 +1,4 @@
+import { HistoricalDaum } from "@/schemas/TreeSchema";
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -15,4 +16,18 @@ export function parseTimestamp(timestamp: string): { date: string; time: string 
     date: `${day}/${month}/${year}`,
     time: hour
   };
+}
+
+
+export function filterSensorData(
+  data: HistoricalDaum[],
+  sensorName: "moisture" | "temperature" | "humidity" | "pressure"
+): Array<{ [key: string]: number | string }> {
+  if (!data.some(item => sensorName in item)) {
+    return [];
+  }
+  return data.map(item => ({
+    [sensorName]: item[sensorName],
+    timestamp: item.timestamp,
+  }));
 }
