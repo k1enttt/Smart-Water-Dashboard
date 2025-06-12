@@ -18,7 +18,8 @@ export async function GET() {
       headers: { "X-API-Key": API_KEY },
     });
     if (!resDevice.ok) {
-      return NextResponse.json({ error: `Device API error: ${resDevice.status}` }, { status: 500 });
+      const errorBody = await resDevice.text();
+      return NextResponse.json({ error: `Device API error: ${resDevice.status}`, message: errorBody }, { status: 500 });
     }
     const dataDevice = await resDevice.json();
 
@@ -27,7 +28,8 @@ export async function GET() {
       headers: { "X-API-Key": API_KEY },
     });
     if (!resWeather.ok) {
-      return NextResponse.json({ error: `Weather API error: ${resWeather.status}` }, { status: 500 });
+      const errorBody = await resWeather.text();
+      return NextResponse.json({ error: `Weather API error: ${resWeather.status}`, message: errorBody }, { status: 500 });
     }
     const dataWeather = await resWeather.json();
 

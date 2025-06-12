@@ -1,13 +1,26 @@
 import puppeteer from "puppeteer";
+import chromium from "@sparticuz/chromium-min";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
+    let browser = null;
     // Khởi tạo trình duyệt headless
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    });
+    if (process.env.NODE_ENV !== "production") {
+      browser = await puppeteer.launch({
+        headless: true,
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      });
+    } else {
+      browser = await puppeteer.launch({
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath(
+          "https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar"
+        ),
+        headless: chromium.headless,
+      });
+    }
     const page = await browser.newPage();
 
     // Truy cập trang web
@@ -18,7 +31,11 @@ export async function GET() {
     // Giả lập chọn ngày hôm qua (giả định trang có form chọn ngày)
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
-    const dateString = `${yesterday.getDate().toString().padStart(2, "0")}-${(yesterday.getMonth() + 1).toString().padStart(2, "0")}-${yesterday.getFullYear()}`; // Format: DD-MM-YYYY
+    const dateString = `${yesterday.getDate().toString().padStart(2, "0")}-${(
+      yesterday.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}-${yesterday.getFullYear()}`; // Format: DD-MM-YYYY
 
     // Trích xuất dữ liệu từ bảng
     const weatherData = await page.evaluate(() => {
