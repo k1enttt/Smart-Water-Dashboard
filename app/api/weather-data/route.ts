@@ -18,7 +18,7 @@ export async function GET() {
     // Giả lập chọn ngày hôm qua (giả định trang có form chọn ngày)
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
-    const dateString = yesterday.toISOString().split("T")[0]; // Format: YYYY-MM-DD
+    const dateString = `${yesterday.getDate().toString().padStart(2, "0")}-${(yesterday.getMonth() + 1).toString().padStart(2, "0")}-${yesterday.getFullYear()}`; // Format: DD-MM-YYYY
 
     // Trích xuất dữ liệu từ bảng
     const weatherData = await page.evaluate(() => {

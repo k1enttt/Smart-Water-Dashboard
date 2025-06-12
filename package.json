@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npx puppeteer browsers install chrome",
+    "prebuild": "npx puppeteer browsers install chrome && pip install -r crons/requirements.txt",
     "build": "next build",
     "start": "next start"
   },
