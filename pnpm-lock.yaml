@@ -47,6 +47,9 @@ importers:
       puppeteer:
         specifier: ^24.10.0
         version: 24.10.0(typescript@5.8.2)
+      puppeteer-core:
+        specifier: ^24.10.0
+        version: 24.10.0
       react:
         specifier: ^18
         version: 18.3.1
@@ -2783,7 +2786,7 @@ snapshots:
       '@babel/parser': 7.27.2
       '@babel/template': 7.27.2
       '@babel/types': 7.27.1
-      debug: 4.4.0
+      debug: 4.4.1
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
@@ -3380,7 +3383,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 6.21.0
       '@typescript-eslint/visitor-keys': 6.21.0
-      debug: 4.4.0
+      debug: 4.4.1
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.3

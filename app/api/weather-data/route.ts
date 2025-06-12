@@ -1,24 +1,12 @@
 import puppeteer from "puppeteer";
-import chromium from "@sparticuz/chromium-min";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    let browser = null;
-    // Khởi tạo trình duyệt headless
-    if (process.env.NODE_ENV !== "production") {
-      browser = await puppeteer.launch({
-        headless: true,
-        args: ["--no-sandbox", "--disable-setuid-sandbox"],
-      });
-    } else {
-      browser = await puppeteer.launch({
-        args: chromium.args,
-        defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath(),
-        headless: chromium.headless,
-      });
-    }
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
     const page = await browser.newPage();
 
     // Truy cập trang web
