@@ -15,7 +15,7 @@ export async function GET() {
       browser = await puppeteer.launch({
         args: chromium.args,
         defaultViewport: chromium.defaultViewport,
-        headless: chromium.headless,
+        headless: true,
       });
     }
     const page = await browser.newPage();
