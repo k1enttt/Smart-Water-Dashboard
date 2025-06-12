@@ -5,21 +5,31 @@ export async function GET() {
   try {
     // Load env variables
     const API_KEY = process.env.CRON_JOB_API_KEY;
-    const API_URL = process.env.CRON_JOB_API_URL || "http://localhost:3000/api/weather-data";
+    const DEVICES_API_URL = process.env.CRON_JOB_API_URL || "http://localhost:3000/api/devices";
+    const WEATHER_API_URL = `${process.env.NEXT_PUBLIC_BASE_URL}api/weather-data`
     const MONGO_URI = process.env.MONGODB_URI;
 
     if (!API_KEY || !MONGO_URI) {
       return NextResponse.json({ error: "Missing environment variables" }, { status: 500 });
     }
 
-    // Fetch data from weather-data API
-    const res = await fetch(API_URL, {
+    // Fetch weather data from worldweatheronline
+    const resDevice = await fetch(DEVICES_API_URL, {
       headers: { "X-API-Key": API_KEY },
     });
-    if (!res.ok) {
-      return NextResponse.json({ error: `API error: ${res.status}` }, { status: 500 });
+    if (!resDevice.ok) {
+      return NextResponse.json({ error: `Device API error: ${resDevice.status}` }, { status: 500 });
     }
-    const data = await res.json();
+    const dataDevice = await resDevice.json();
+
+    // Fetch device data from device API
+    const resWeather = await fetch(WEATHER_API_URL, {
+      headers: { "X-API-Key": API_KEY },
+    });
+    if (!resWeather.ok) {
+      return NextResponse.json({ error: `Weather API error: ${resWeather.status}` }, { status: 500 });
+    }
+    const dataWeather = await resWeather.json();
 
     // Connect to MongoDB
     const client = new MongoClient(MONGO_URI);
@@ -36,9 +46,11 @@ export async function GET() {
 
     await client.close();
 
+    // TODO: Save data to database
+
     return NextResponse.json({
       message: "Fetched and listed trees successfully",
-      apiData: data,
+      apiData: {devices: dataDevice, weather: dataWeather},
       trees: trees.map(tree => tree.name),
     });
   } catch (error) {
