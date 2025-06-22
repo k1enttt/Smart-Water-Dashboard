@@ -31,6 +31,14 @@ const Tabs = () => {
           Giám sát
         </a>
       </li>
+       <li className="me-2">
+        <a
+          href={`${treeId ? `/trees/${treeId}/actions` : '#'}`}
+          className={currentRoute == 'actions' ? activeStyle : deactiveStyle}
+        >
+          Hành động
+        </a>
+      </li>
     </ul>
   );
 };

@@ -58,7 +58,7 @@ export default async function TreeDashboard(props: Args) {
       </div>
       <div className="mt-4 grid grid-cols-2 gap-4">
         <Suspense fallback={<div>Loading...</div>}>
-          <MyLineChart chartData={filterSensorData(historicalData, 'temperature')} title="Nhiệt độ (oC)" />
+          <MyLineChart chartData={filterSensorData(historicalData, 'temperature')} title="Nhiệt độ (&deg;C)" />
           <MyLineChart chartData={filterSensorData(historicalData, 'humidity')} title="Độ ẩm không khí (%)"/>
           <MyLineChart chartData={filterSensorData(historicalData, 'moisture')} title="Độ ẩm đất (%)" />
           <MyLineChart chartData={filterSensorData(historicalData, 'pressure')} title="Áp suất khi quyển (mb)" />
