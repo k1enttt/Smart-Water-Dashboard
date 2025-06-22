@@ -1,0 +1,6 @@
+[X] Bỏ trang Devices
+[X] Bỏ trang Settings
+[X] Thêm nút tưới cây
+[ ] Thêm dữ liệu lịch sử cảm biến
+[ ] Thêm lịch sử hành động tưới cây
+[ ] Sử dụng toàn bộ Tiếng Việt

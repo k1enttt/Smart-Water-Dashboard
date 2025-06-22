@@ -1,4 +1,5 @@
 import Tabs from "@/app/components/Tabs";
+import WateringButton from "@/app/components/WateringButton";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,8 +11,9 @@ export const metadata: Metadata = {
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div>
-      <div className="mb-4">
+      <div className="mb-4 flex justify-between items-center">
         <Tabs />
+        <WateringButton />
       </div>
       {children}
     </div>

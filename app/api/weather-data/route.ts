@@ -6,21 +6,21 @@ export async function GET() {
   try {
     let browser = null
     // Khởi tạo trình duyệt headless
-    if (process.env.NODE_ENV !== "production") {
-    browser = await puppeteer.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    });
-  } else {
-    browser = await puppeteer.launch({
-      args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(
-        "https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar"
-      ),
-      headless: chromium.headless,
-    });
-  }
+      if (process.env.NODE_ENV !== "production") {
+      browser = await puppeteer.launch({
+        headless: true,
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      });
+    } else {
+      browser = await puppeteer.launch({
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath(
+          "https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar"
+        ),
+        headless: chromium.headless,
+      });
+    }
     const page = await browser.newPage();
 
     // Truy cập trang web

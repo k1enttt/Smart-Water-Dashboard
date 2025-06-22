@@ -31,14 +31,6 @@ const Tabs = () => {
           Dashboard
         </a>
       </li>
-      <li className="me-2">
-        <a
-          href={`${treeId ? `/trees/${treeId}/settings` : '#'}`}
-          className={currentRoute == 'settings' ? activeStyle : deactiveStyle}
-        >
-          Settings
-        </a>
-      </li>
     </ul>
   );
 };
