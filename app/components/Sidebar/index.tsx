@@ -27,7 +27,7 @@ const Sidebar = () => {
                 />
               </svg>
 
-              <span className="ml-3">Trees</span>
+              <span className="ml-3">Cây</span>
             </a>
           </div>
         </div>

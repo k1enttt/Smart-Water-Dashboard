@@ -44,7 +44,7 @@ const Navbar = () => {
               alt="Smart Water Logo"
             />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              SW Dashboard
+              Tưới cây thông minh
             </span>
           </a>
         </div>

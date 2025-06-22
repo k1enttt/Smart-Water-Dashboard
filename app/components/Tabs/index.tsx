@@ -20,7 +20,7 @@ const Tabs = () => {
           aria-current="page"
           className={currentRoute == '' ? activeStyle : deactiveStyle}
         >
-          Profile
+          Tổng quan
         </a>
       </li>
       <li className="me-2">
@@ -28,7 +28,7 @@ const Tabs = () => {
           href={`${treeId ? `/trees/${treeId}/dashboard` : '#'}`}
           className={currentRoute == 'dashboard' ? activeStyle : deactiveStyle}
         >
-          Dashboard
+          Giám sát
         </a>
       </li>
     </ul>

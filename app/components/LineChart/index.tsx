@@ -59,19 +59,19 @@ const chartDataForTesting = [
 
 const chartConfig = {
   moisture: {
-    label: "Moisture",
+    label: "Độ ẩm đất",
     color: "hsl(var(--chart-1))",
   },
   temperature: {
-    label: "Temperature",
+    label: "Nhiệt độ",
     color: "hsl(var(--chart-2))",
   },
   humidity: {
-    label: "Humidity",
+    label: "Độ ẩm không khí",
     color: "hsl(var(--chart-3))",
   },
   pressure: {
-    label: "Pressure",
+    label: "Áp suất khí quyển",
     color: "hsl(var(--chart-4))",
   },
 } satisfies ChartConfig;
@@ -92,8 +92,8 @@ export function MyLineChart({ chartData, title }: ChartProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Line Chart - {title}</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>{title}</CardTitle>
+        {/* <CardDescription>January - June 2024</CardDescription> */}
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
