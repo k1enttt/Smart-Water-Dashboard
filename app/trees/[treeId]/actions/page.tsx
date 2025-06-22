@@ -1,5 +1,7 @@
+import ActionTable from "@/app/components/ActionTable";
+
 const ActionsPage = () => {
-  return ( <div>trang danh sách hành động</div> );
+  return ( <div className=""><ActionTable/></div> );
 }
  
 export default ActionsPage;
