@@ -13,6 +13,13 @@ export interface TreeSchema {
   sensors: Sensor[]
   historical_data: HistoricalDaum[]
   alerts: Alert[]
+  actions: Action[]
+}
+
+export interface Action {
+  id: string
+  timestamp: string
+  message: string
 }
 
 export interface WateringSchedule {
