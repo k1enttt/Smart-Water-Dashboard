@@ -1,6 +1,6 @@
 'use server'
-const API_URL = 'https://device.kienttt.id.vn/api/control';
-const API_KEY = 'x7k9p3m2q8w4e6r5t';
+const API_URL = process.env.CONTROL_API_URL || '';
+const API_KEY = process.env.CONTROL_API_KEY || '';
 
 interface ControlPayload {
   device_name: "soil_sensor_1" | "soil_sensor_2";

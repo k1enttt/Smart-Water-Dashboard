@@ -2,11 +2,10 @@ import ActionTable from "@/app/components/ActionTable";
 import { Action } from "@/schemas/TreeSchema";
 
 type Props = {
-  params: {
+  params: Promise<{
     treeId: string;
-  };
+  }>;
 };
-
 async function getData(treeId: string): Promise<Action[]> {
   // Fetch data from your API here.
   const res = await fetch(
@@ -20,8 +19,8 @@ async function getData(treeId: string): Promise<Action[]> {
   return data;
 }
 
-const ActionsPage = async ({ params }: Props) => {
-  const { treeId } = params;
+export default async function ActionsPage({ params }: Props) {
+  const { treeId } = await params;
   const data = await getData(treeId);
   return (
     <div>
@@ -29,5 +28,3 @@ const ActionsPage = async ({ params }: Props) => {
     </div>
   );
 };
-
-export default ActionsPage;
