@@ -50,3 +50,9 @@ export interface Alert {
   threshold: number
   unit: string
 }
+
+export interface ControlResponse {
+  command: string
+  device_name: string
+  status: string
+}
