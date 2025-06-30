@@ -34,6 +34,7 @@ const WateringButton = () => {
     const response: ControlResponse = await sendControlCommand({
       command: "water_on",
       device_name,
+      treeId
     }).then((res) => {
       setRequested(false);
       return res;

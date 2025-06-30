@@ -7,7 +7,8 @@ interface ControlPayload {
   command: "water_on" | "water_off";
 }
 
-export async function sendControlCommand(payload: ControlPayload): Promise<any> {
+export async function sendControlCommand(payload: ControlPayload & { treeId: string }): Promise<any> {
+  // Gửi yêu cầu đến máy bơm nước
   const response = await fetch(API_URL, {
     method: 'POST',
     headers: {
@@ -20,7 +21,23 @@ export async function sendControlCommand(payload: ControlPayload): Promise<any> 
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
-  
-  const message = await response.json()
-  return message;
+
+  const message = await response.json();
+
+  // Gửi tiếp yêu cầu lưu action vào database
+  const saveActionRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/trees/${payload.treeId}/actions`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: { action: payload.command } as any,
+  });
+
+  if (!saveActionRes.ok) {
+    throw new Error(`Failed to save action to database! status: ${saveActionRes.status}`);
+  }
+
+  const saveActionMessage = await saveActionRes.json();
+
+  return { control: message, saveAction: saveActionMessage };
 }

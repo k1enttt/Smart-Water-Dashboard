@@ -1,3 +1,4 @@
+import MetricCard from "@/app/components/MetricCard";
 import Tabs from "@/app/components/Tabs";
 import WateringButton from "@/app/components/WateringButton";
 import type { Metadata } from "next";
@@ -14,6 +15,20 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className="mb-4 flex justify-between items-center">
         <Tabs />
         <WateringButton />
+      </div>
+      <div className="grid grid-cols-2 gap-4 mb-4">
+        <MetricCard
+          title="Rainfall Prediction (24h)"
+          value={`1022 mm`}
+          icon={<></>}
+          description="Predicted rainfall for next 24 hours"
+        />
+        <MetricCard
+          title="Soil Moisture"
+          value={`45%`}
+          icon={<></>}
+          description="Current soil moisture level"
+        />
       </div>
       {children}
     </div>

@@ -19,8 +19,8 @@ export function parseTimestamp(timestamp: string): { date: string; time: string 
 }
 
 export function filterSensorData(
-  data: HistoricalDaum[],
-  sensorName: "moisture" | "temperature" | "humidity" | "pressure"
+  data: any[],
+  sensorName: "soil_moisture" | "temperature" | "humidity" | "pressure"
 ): Array<{ [key: string]: number | string }> {
   if (!data.some(item => sensorName in item)) {
     return [];

@@ -85,6 +85,7 @@ export function MyLineChart({ chartData, title }: ChartProps) {
   const formatedChartData = chartData?.map((e) => {
     return {
       ...e,
+      moisture: e.soil_moisture ?? e.moisture,
       timestamp: parseTimestamp(e.timestamp).time,
     };
   });
@@ -140,6 +141,13 @@ export function MyLineChart({ chartData, title }: ChartProps) {
               dataKey="humidity"
               type="linear"
               stroke="var(--color-humidity)"
+              strokeWidth={2}
+              dot={false}
+            />
+             <Line
+              dataKey="pressure"
+              type="linear"
+              stroke="var(--color-pressure)"
               strokeWidth={2}
               dot={false}
             />

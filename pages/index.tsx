@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { TreeSchema } from "@/schemas/TreeSchema";
 import Navbar from "@/app/components/Navbar";
 import Sidebar from "@/app/components/Sidebar";
+import MetricCard from "@/app/components/MetricCard";
 
 type ConnectionStatus = {
   isConnected: boolean;
@@ -56,25 +57,6 @@ export default function Home({
         <Navbar />
         <Sidebar />
         <div className="p-4 md:ml-64 h-auto pt-20">
-          <div className="grid grid-cols-2 gap-4 mb-4">
-            <div className="border-2 border-dashed border-gray-300 rounded-lg dark:border-gray-600 p-4">
-              <div className="">Hôm nay có mưa không?</div>
-              <div className="flex gap-4 mt-2">
-                <div className="rounded-lg bg-blue-500 align-middle p-2">
-                  <div className="text-5xl font-bold text-white h-full flex items-center">
-                    1xxx mm
-                  </div>
-                </div>
-
-                <div className="text-gray-500">
-                  <div>Nhiệt độ: 3x oC</div>
-                  <div>Độ ẩm: 6x %</div>
-                  <div>Áp suất: 102x mbar</div>
-                </div>
-              </div>
-            </div>
-            <div className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600"></div>
-          </div>
           <div className="rounded-lg h-96 mb-4">
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
               {loading ? (

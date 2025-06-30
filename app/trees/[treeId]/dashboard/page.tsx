@@ -13,20 +13,53 @@ type Args = {
   }>;
 };
 
+async function fetchWeeklyAirSamples() {
+  const res = await fetch("http://127.0.0.1:8000/air/samples/weekly/");
+  if (!res.ok) {
+    throw new Error("Failed to fetch weekly air samples");
+  }
+  const data = await res.json();
+  // data là một mảng các record dạng:
+  // { temperature, humidity, pressure, id, timestamp }
+  return data;
+}
+
+async function fetchWeeklySoilMoisture(description: string) {
+  const res = await fetch(
+    `http://127.0.0.1:8000/soil/samples/weekly/${description}`
+  );
+  if (!res.ok) {
+    throw new Error("Failed to fetch weekly soil moisture data");
+  }
+  const data = await res.json();
+  // data là một mảng các record dạng:
+  // { description, soil_moisture, id, timestamp }
+  return data;
+}
+
 export default async function TreeDashboard(props: Args) {
   const { treeId } = await props.params;
 
-  // Dữ liệu cảm biển mới nhất
+  // Lấy danh sách cây từ API
+  const treesRes = await fetch(`${BASE_URL}/api/trees`);
+  const treesData = await treesRes.json();
+  const treesList = treesData.response as { _id: string; [key: string]: any }[];
+
+  // Kiểm tra cây hiện tại có phải là cây đầu tiên không
+  const isFirstTree = treesList.length > 0 && treesList[0]._id === treeId;
+  const description = isFirstTree ? "cayot1" : "bapcai1";
+
+  // Dữ liệu cảm biến mới nhất
   const res1 = await fetch(
     `${BASE_URL}/api/trees/${treeId}/latest-historical-data`
   );
   const data1 = await res1.json();
   const latestHistoricalData = data1.response as HistoricalDaum;
 
-  // Danh sách dữ liệu cảm biến
-  const res2 = await fetch(`${BASE_URL}/api/trees/${treeId}/historical-data`);
-  const data2 = await res2.json();
-  const historicalData = data2.response as HistoricalDaum[];
+  // Dữ liệu cảm biến không khí
+  const historicalData = (await fetchWeeklyAirSamples()) as HistoricalDaum[];
+  // Dữ liệu độ ẩm đất
+  const moistureHistory = await fetchWeeklySoilMoisture(description);
 
   return (
     <div>
@@ -58,10 +91,22 @@ export default async function TreeDashboard(props: Args) {
       </div>
       <div className="mt-4 grid grid-cols-2 gap-4">
         <Suspense fallback={<div>Loading...</div>}>
-          <MyLineChart chartData={filterSensorData(historicalData, 'temperature')} title="Nhiệt độ (&deg;C)" />
-          <MyLineChart chartData={filterSensorData(historicalData, 'humidity')} title="Độ ẩm không khí (%)"/>
-          <MyLineChart chartData={filterSensorData(historicalData, 'moisture')} title="Độ ẩm đất (%)" />
-          <MyLineChart chartData={filterSensorData(historicalData, 'pressure')} title="Áp suất khi quyển (mb)" />
+          <MyLineChart
+            chartData={filterSensorData(moistureHistory, "soil_moisture")}
+            title="Độ ẩm đất (%)"
+          />
+          <MyLineChart
+            chartData={filterSensorData(historicalData, "temperature")}
+            title="Nhiệt độ (&deg;C)"
+          />
+          <MyLineChart
+            chartData={filterSensorData(historicalData, "humidity")}
+            title="Độ ẩm không khí (%)"
+          />
+          <MyLineChart
+            chartData={filterSensorData(historicalData, "pressure")}
+            title="Áp suất khi quyển (mb)"
+          />
         </Suspense>
       </div>
     </div>
