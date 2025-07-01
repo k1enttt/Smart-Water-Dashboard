@@ -19,13 +19,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className="grid grid-cols-2 gap-4 mb-4">
         <MetricCard
           title="Rainfall Prediction (24h)"
-          value={`1022 mm`}
+          value={`1xxx mm`}
           icon={<></>}
           description="Predicted rainfall for next 24 hours"
         />
         <MetricCard
           title="Soil Moisture"
-          value={`45%`}
+          value={`4x%`}
           icon={<></>}
           description="Current soil moisture level"
         />
